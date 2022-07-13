@@ -59,7 +59,7 @@ def train_loop(model, dataloader, optimizer, max_grad_norm, use_crf, pad_token, 
 
     loss_array = []
     for sample in dataloader:
-        optimizer.zero_grad() # Zeroing the gradient
+        optimizer.zero_grad()
 
         input_ids = sample['utterances'].to(device)
         slots_len = sample['slots_len'].to(device)

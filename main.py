@@ -147,6 +147,7 @@ def main_baseline(task='atis', device='cpu', use_crf=False, dropout=True, runs=1
     num_slot_labels = len(lang.slot2id)
     num_intent_labels = len(lang.intent2id)
     vocab_len = len(lang.word2id)
+    print("vocab len: ", vocab_len)
 
     #create model
     model = bm.Base_Model(hid_size, num_slot_labels, num_intent_labels, emb_size, vocab_len, use_crf, dropout, dropout_rate, n_layer, pad_token=PAD_TOKEN)
@@ -160,22 +161,23 @@ def main_baseline(task='atis', device='cpu', use_crf=False, dropout=True, runs=1
                         learning_rate, max_grad_norm, patience, use_crf, PAD_TOKEN, device)
 
 if __name__ == '__main__':
-    #baseline = False
-    baseline = True
+    #baseline = False #to select baseline model
+    baseline = True #to select final model
 
-    task='atis'
-    #task='snips'
+    #task='atis' #to train and test on ATIS dataset
+    task='snips' #to train and test on SNIPS dataset
 
     device='cpu'
 
-    #use_crf = True
+    #use_crf = True #to add CRF layer in the slot classifier
     use_crf = False
 
-    dropout = True
-    #dropout = False
+    #dropout = True #to use dropout as normalization method
+    dropout = False #to use layer normalization
 
-    runs = 1
-    #runs = 5
+    runs = 1 #for single run execution
+    #runs = 3 #for multy run on final model
+    #runs = 5 #for multy run on baseline model
 
     if baseline:
         main_baseline(task, device, use_crf, dropout, runs)
